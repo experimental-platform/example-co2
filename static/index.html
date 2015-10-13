@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="///maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="///maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://underscorejs.org/underscore-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <title>Experimental CO2</title>
@@ -31,6 +32,7 @@
 <script>
     $(window).load(function () {
         var socket = io(window.location.protocol + '//' + window.location.hostname, {path: window.location.pathname + 'socket.io'});
+        var chart;
         var generateInitialData = function () {
             // generate an array of random data
             var data = [],
@@ -45,29 +47,31 @@
             }
             return data;
         };
+
+        socket.on('update', function (signal) {
+            var series = _.findWhere(chart.series, {location: signal.location});
+            if (! series) {
+                series = {name: signal.location, data: [signal.status]};
+                chart.series.push(series)
+            }
+            var shift = series.data.length > 5000;
+            var x = (new Date()).getTime();
+            series.addPoint([x, parseFloat(signal.status)], true, shift);
+            console.log('Added Point', signal.status, " at location ", signal.location);
+        });
+
         Highcharts.setOptions({
             global: {
                 useUTC: false
             }
         });
 
-        $('#chart').highcharts({
+        chart = new Highcharts.Chart({
             chart: {
+                renderTo: 'chart',
                 type: 'spline',
                 animation: Highcharts.svg, // don't animate in old IE
-                marginRight: 10,
-                events: {
-                    load: function () {
-                        var chart = this;
-                        socket.on('update', function (signal) {
-                            var series = chart.series[0];
-                            series.name = signal.location;
-                            var x = (new Date()).getTime();
-                            series.addPoint([x, parseFloat(signal.status)], true, true);
-                            console.log('Added Point', signal.status, " at location ", signal.location);
-                        });
-                    }
-                }
+                marginRight: 10
             },
             title: {
                 text: null
@@ -100,7 +104,7 @@
                 enabled: false
             },
             series: [
-                {name: "Example 1", data: generateInitialData()}, {name: "Example 2", data: generateInitialData()}
+                {name: "Empty Example", data: []}
             ]
         });
 

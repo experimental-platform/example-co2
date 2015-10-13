@@ -48,9 +48,10 @@
                         var chart = this;
                         socket.on('update', function (signal) {
                             var series = chart.series[0];
+                            series.name = signal.location;
                             var x = (new Date()).getTime();
-                            series.addPoint([x, parseFloat(signal)], true, true);
-                            console.log('Added Point', signal);
+                            series.addPoint([x, parseFloat(signal.status)], true, true);
+                            console.log('Added Point', signal.status, " at location ", signal.location);
                         });
                     }
                 }
@@ -85,23 +86,7 @@
             exporting: {
                 enabled: false
             },
-            series: [{
-                name: 'CO2 Level',
-                data: (function () {
-                    // generate an array of random data
-                    var data = [],
-                            time = (new Date()).getTime(),
-                            i;
-
-                    for (i = -19; i <= 0; i += 1) {
-                        data.push({
-                            x: time + i * 1000,
-                            y: Math.random()
-                        });
-                    }
-                    return data;
-                }())
-            }]
+            series: []
         });
 
 

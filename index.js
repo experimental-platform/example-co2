@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, './static')));
 
 app.get('/update', function (req, res, next) {
   console.log("got update: ", req.query.status);
-  io.emit('update', req.query.status);
+  io.emit('update', {location: req.query.location, status: req.query.status});
   res.json({success: true});
   next();
 });

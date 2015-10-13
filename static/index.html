@@ -69,11 +69,50 @@
                 title: {
                     text: "PPM"
                 },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                // floor: 200,
+                // ceiling: 6000,
+                plotLines: [
+                    {
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    },
+                    {
+                        color: 'green',
+                        width: 2,
+                        value: 1000,
+                        label: {
+                            text: "Produktivität wird beeinträchtigt",
+                            style: {
+                                color: 'green'
+                            }
+                        }
+                    },
+                    {
+                        color: 'orange',
+                        width: 2,
+                        value: 1400,
+                        label: {
+                            text: "Max. zul. Grenzwert",
+                            style: {
+                                color: 'orange',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    {
+                        color: 'red',
+                        width: 2,
+                        value: 5000,
+                        label: {
+                            text: "Gesundheitsgefährdend",
+                            style: {
+                                color: 'red',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    }
+                ]
             },
             tooltip: {
                 formatter: function () {

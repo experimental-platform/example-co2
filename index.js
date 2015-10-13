@@ -8,7 +8,7 @@ var express = require('express'),
 app.use(express.static(path.join(__dirname, './static')));
 
 app.get('/update', function (req, res, next) {
-  console.log("got update: ", req.query.status);
+  console.log("got update: ", req.query);
   io.emit('update', {location: req.query.location, status: req.query.status});
   res.json({success: true});
   next();
@@ -22,7 +22,7 @@ io.on('connection', function (socket) {
   });
 });
 
-http.listen(process.env.PORT || 4000, function () {
-  console.log('listening on: ' + process.env.PORT || 5000);
+http.listen(process.env.PORT || 5000, function () {
+  console.log('listening on: ' + (process.env.PORT || 5000));
 });
 

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="///maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="///maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://underscorejs.org/underscore-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <title>Experimental CO2</title>
@@ -33,30 +32,16 @@
     $(window).load(function () {
         var socket = io(window.location.protocol + '//' + window.location.hostname, {path: window.location.pathname + 'socket.io'});
         var chart;
-        var generateInitialData = function () {
-            // generate an array of random data
-            var data = [],
-                    time = (new Date()).getTime(),
-                    i;
-
-            for (i = -19; i <= 0; i += 1) {
-                data.push({
-                    x: time + i * 1000,
-                    y: Math.random()
-                });
-            }
-            return data;
-        };
-
         socket.on('update', function (signal) {
-            var series = _.findWhere(chart.series, {location: signal.location});
-            if (! series) {
-                series = {name: signal.location, data: [signal.status]};
-                chart.series.push(series)
+            var series = chart.get(signal.location);
+            if (!series) {
+                chart.addSeries({id: signal.location, name: signal.location, data: []});
+                series = chart.get(signal.location);
             }
+            // max number of shown data points
             var shift = series.data.length > 5000;
-            var x = (new Date()).getTime();
-            series.addPoint([x, parseFloat(signal.status)], true, shift);
+            var today = (new Date()).getTime();
+            series.addPoint([today, parseFloat(signal.status)], true, shift);
             console.log('Added Point', signal.status, " at location ", signal.location);
         });
 
@@ -98,17 +83,13 @@
                 }
             },
             legend: {
-                enabled: false
+                enabled: true
             },
             exporting: {
                 enabled: false
             },
-            series: [
-                {name: "Empty Example", data: []}
-            ]
+            series: []
         });
-
-
     });
 </script>
 </body>

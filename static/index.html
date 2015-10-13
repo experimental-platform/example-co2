@@ -31,7 +31,20 @@
 <script>
     $(window).load(function () {
         var socket = io(window.location.protocol + '//' + window.location.hostname, {path: window.location.pathname + 'socket.io'});
+        var generateInitialData = function () {
+            // generate an array of random data
+            var data = [],
+                    time = (new Date()).getTime(),
+                    i;
 
+            for (i = -19; i <= 0; i += 1) {
+                data.push({
+                    x: time + i * 1000,
+                    y: Math.random()
+                });
+            }
+            return data;
+        };
         Highcharts.setOptions({
             global: {
                 useUTC: false
@@ -86,7 +99,9 @@
             exporting: {
                 enabled: false
             },
-            series: []
+            series: [
+                {name: "Example 1", data: generateInitialData()}, {name: "Example 2", data: generateInitialData()}
+            ]
         });
 
 

@@ -6,27 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="///maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="///maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <title>Experimental CO2</title>
+    <style>
+    .container {
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+    }
+    @media (max-width: 800px) {
+      .page-header {
+        display: none;
+      }
+    }
+    </style>
 </head>
 <body>
 <div class="container">
-    <div class="page-header">
-        <h1>Protonet CO2 Sensor</h1>
-
-        <p class="lead">Simply breathe.</p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div id="chart"></div>
-        </div>
-    </div>
+  <div class="page-header">
+    <h1>Protonet CO2 Sensor</h1>
+    <p class="lead">Simply breathe.</p>
+  </div>
+  <div id="chart"></div>
 </div>
 <script>
     $(window).load(function () {

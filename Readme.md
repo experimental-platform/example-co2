@@ -68,6 +68,7 @@ This command might need a bit of explaining. The term "platform" is decided by y
 You are almost there - you just have to push the repository to your Experimental Platform with
 
 _git push platform master_
+
 ![image](https://36.media.tumblr.com/f6989435803cfc5051859e8da1c2fdc6/tumblr_inline_nwzg88rQx81tzfota_540.png)
 
 A bit of script working in the background will work and after some time the app should be deployed.
@@ -103,6 +104,7 @@ TAKE ATTENTION TO THE POLARITY OF THE SENSOR!**_
 As the sensor has no reverse-polarity protection, you could cause massive damage to it and render it useless. Use a multimeter to get the polarity of the USB output of the step-up converter, if you are not sure about it.
 
 This warning said connect the power wires of the sensor to the output (USB socket pads) of the step-up converter.
+
 ![image](https://36.media.tumblr.com/f6a52a5b3772af420a3f8bb607ecd5c7/tumblr_inline_nwzgjcVPgf1tzfota_540.jpg)
 
 The yellow wire (RxD) of the sensor goes to pin 8 on the ESPtoy, the green wire (TxD) to pin 7. If you later get no data you might have those accidentally switched. As said you don't need to have a connector to the USB output of the power bank. In the photo you can also see how our prototype fits in our hexagon shaped modules.

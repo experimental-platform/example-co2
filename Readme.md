@@ -55,19 +55,27 @@ Our app for the CO2-sensor is like all other available apps hosted on our github
 
 Go to your command line and type the following:
 
-_git clone https://github.com/experimental-platform/example-co2_. For all the non-gitters among us - this is the instruction to make an exact copy of the git repository named "example-co2".
+```
+git clone https://github.com/experimental-platform/example-co2
+```
+
+For all the non-gitters among us - this is the instruction to make an exact copy of the git repository named "example-co2".
 
 Next change to the directory "example-co2".
 
 Now add the remote platform (your Experimental Platform) to the repository by typing:
 
-_git remote add platform ssh://dokku@yourIP:8022/co2_
+```
+git remote add platform ssh://dokku@yourIP:8022/co2
+```
 
 This command might need a bit of explaining. The term "platform" is decided by you. You can name it like you want, but you have to use the name later for pushing the repository to your Experimental Platform. "yourIP" of cause is the IP of your Experimental Platform, substitute it with the raw IP or something like "myMachine.local" (remember you initially named your platform). Last "co2" is the path where the app looks for data, so do not change that.
 
 You are almost there - you just have to push the repository to your Experimental Platform with
 
-_git push platform master_
+```
+git push platform master
+```
 
 ![image](https://36.media.tumblr.com/f6989435803cfc5051859e8da1c2fdc6/tumblr_inline_nwzg88rQx81tzfota_540.png)
 
